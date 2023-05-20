@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 
 <head>
   <meta charset="UTF-8" />
@@ -8,53 +8,55 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="api.js"></script>
   <link rel="stylesheet" href="style.css" />
-  <title>Image Gererator using OpenAI API</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <title>Your AI Image Generator</title>
 </head>
 
-<body class="max-w-4xl mx-auto">
+<body class="max-w-4xl mx-auto bg-gray-900 text-white">
   <div class="flex flex-col justify-center px-4 pt-12 sm:px-6 lg:px-8">
     <div class="text-center">
-      <h1 class="text-4xl font-bold mb-10">Image Generator</h1>
-      <p class="text-md lg:text-xl mb-10">
-        This is a simple image generator using
-        <a href="https://openai.com/api/" class="font-semibold">OpenAI API.</a>
+      <h1 class="text-4xl font-bold mb-10 text-white">Image Generator</h1>
+      <p class="text-md lg:text-xl mb-10 text-gray-300">
         You can generate images by entering a short description of the image or by entering a keyword.
       </p>
     </div>
-    <div class="bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
+    <div class="bg-gray-800 shadow-md rounded-lg px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
       <div class="mb-4 flex flex-col gap-2">
-        <label for="api" class="text-gray-600 apiDiv">OpenAI API Key</label>
-        <input type="text" id="api" class="input-style apiDiv" placeholder="Enter your OpenAI API key here" />
-        <label for="text" class="text-gray-600">Description or Keyword</label>
-        <textarea id="text" class="input-style"
+        <label for="api" class="text-gray-400 apiDiv">OpenAI API Key</label>
+        <input type="text" id="api" class="input-style apiDiv bg-gray-700 text-white" placeholder="Enter your OpenAI API key here" />
+        <label for="text" class="text-gray-400">Description or Keyword</label>
+        <textarea id="text" class="input-style bg-gray-700 text-white"
           placeholder="Enter a short description of the image or a keyword"></textarea>
-        <label for="sizeSelect" class="text-gray-600">Image Size</label>
-        <select id="sizeSelect" class="input-style"></select>
-        <label for="numImagesSelect" class="text-gray-600">Number of Images</label>
-        <select id="numImagesSelect" class="input-style"></select>
+        <label for="sizeSelect" class="text-gray-400">Image Size</label>
+        <select id="sizeSelect" class="input-style bg-gray-700 text-white"></select>
+        <label for="numImagesSelect" class="text-gray-400">Number of Images</label>
+        <select id="numImagesSelect" class="input-style bg-gray-700 text-white"></select>
       </div>
       <div class="mt-2 text-right">
-        <button id="btn" class="button-style">Generate</button>
+        <button id="btn" class="button-style bg-gray-600 text-white hover:bg-gray-500">Generate</button>
       </div>
       <div id="loading" class="hidden flex justify-center items-center mt-10">
         <svg class="animate-spin h-10 w-10 text-gray-500" viewBox="0 0 24 24">
           <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
           <path class="opacity-75" fill="currentColor"
-            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647zm11-2.647A7.962 7.962 0 0120 12h-4c0 3.042-1.135 5.824-3 7.938l-3-2.647z">
-          </path>
-        </svg>
-
-      </div>
-      <div id="image" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 mt-10"></div>
+          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647zm11-2.647A7.962 7.962 0 0120 12h-4c0 3.042-1.135 5.824-3 7.938l-3-2.647z">
+        </path>
+      </svg>
     </div>
+    <div id="image" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 mt-10"></div>
   </div>
-  <footer class="text-center mt-10 border-t-2 border-gray-200 py-4" id="checkAuthor">
-    <p class="text-sm">
-      Made with ❤️ by
-      <a href="https://github.com/sauravhathi" class="font-semibold">@sauravhathi</a>
-    </p>
-  </footer>
+</div>
+<footer class="text-center mt-10 border-t-2 border-gray-700 py-4 text-gray-300" id="checkAuthor">
+  <p class="text-sm">
+    Made with ❤️ by
+    <a href="https://github.com/danieljtrujillo" class="font-semibold text-blue-300">@danieljtrujillo</a>
+  </p> 
+  <p class="text-sm">
+    Using
+  <a href="https://openai.com/api/" class="font-semibold text-blue-300">OpenAI API.</a> </p>
+</footer>
 </body>
+
 
 <script>
   const url = "https://api.openai.com/v1/images/generations";
@@ -67,7 +69,7 @@
   const apiDiv = document.getElementsByClassName("apiDiv");
   const apiInput = document.getElementById("api");
 
-  const sizeOptions = ["256", "512", "1024", "1280", "2560", "3840", "5120", "7680"];
+  const sizeOptions = ["256", "512", "1024"];
   const optionsFragment = document.createDocumentFragment();
 
   sizeOptions.forEach((size) => {
@@ -128,31 +130,50 @@
         loadingSpinner.classList.add("hidden");
         btn.disabled = false;
 
-        data.data.forEach((item) => {
-          const img = document.createElement("img");
-          img.src = item.url;
-          img.alt = "image";
-          img.classList.add(
-            "w-full",
-            "h-auto",
-            "rounded-lg",
-            "shadow-lg",
-            "hover:shadow-2xl",
-            "transition",
-            "duration-500",
-            "ease-in-out",
-            "transform",
-            "hover:-translate-y-1",
-            "hover:scale-103"
-          );
+data.data.forEach((item) => {
+  // Create a container for the image and the download button
+  const container = document.createElement("div");
+  container.classList.add("relative");
 
-          image.appendChild(img);
+  // Create the image
+  const img = document.createElement("img");
+  img.src = item.url;
+  img.alt = "image";
+  img.classList.add(
+    "w-full",
+    "h-auto",
+    "rounded-lg",
+    "shadow-lg",
+    "hover:shadow-2xl",
+    "transition",
+    "duration-500",
+    "ease-in-out",
+    "transform",
+    "hover:-translate-y-1",
+    "hover:scale-103"
+  );
 
-          // Double-click event listener
-          img.addEventListener("dblclick", () => {
-            downloadImage(item.url);
-          });
-        });
+  // Create the download button
+  const downloadButton = document.createElement("a");
+  downloadButton.href = item.url;
+  downloadButton.download = document.getElementById("text").value.split(" ").join("_") + ".png";
+  downloadButton.target = "_blank";
+
+  // Add the FontAwesome icon to the download button
+  const downloadIcon = document.createElement("i");
+  downloadIcon.classList.add("fas", "fa-arrow-down", "absolute", "right-0", "bottom-0", "p-2", "text-white", "bg-gray-800", "rounded-tl");
+
+  // Add the icon to the download button
+  downloadButton.appendChild(downloadIcon);
+
+  // Add the image and the download button to the container
+  container.appendChild(img);
+  container.appendChild(downloadButton);
+
+  // Add the container to the image grid
+  image.appendChild(container);
+});
+
       })
       .catch((err) => {
         console.log(err);
@@ -163,8 +184,8 @@
   }
 
   const checkAuthor = document.getElementById("checkAuthor");
-  if (checkAuthor.children[0].children[0].textContent !== "@sauravhathi") {
-    window.location.href = "https://github.com/sauravhathi";
+  if (checkAuthor.children[0].children[0].textContent !== "@danieljtrujillo") {
+    window.location.href = "https://github.com/danieljtrujillo";
   }
 
   text.addEventListener("input", function () {
